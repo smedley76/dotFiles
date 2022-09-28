@@ -137,47 +137,4 @@ ex ()
     echo "'$1' is not a valid file"
   fi
 }
-up() {
-
-  # local variables
-  # d will hold path of directory to cd into
-  local d=""
-
-  # limit variable counts how many "/" are in the path of the current directory
-  # and is used later as the limit of how high you can go
-  # with the max being how many it takes to get to "/" and the minimum being 1 or no input
-  local limit="$(tr -dc '/' <<<$(pwd) | awk '{ print length; }')"
-
-  # this is the variable that holds the input entered after the command name.
-  local wanted="$1"
-
-  # under normal circumstances, this function is called to build and execute the line for changing directory
-  function work {
-    for ((i=1;i<=$wanted;i++)); do
-      d="../$d"
-    done
-
-    # perform cd. Show error if cd fails
-    cd "$d"
-  }
-
-  # Error if any non numerical characters are entered.
-  if ! [[ "$wanted" =~ ^[0-9]+$ ]] && [[ -n "$wanted" ]] ; then
-    echo "You must use an intenger!"
-
-  # This is default behavior without input ran as "up", goes up 1 directory
-  elif [[ -z "$wanted" ]]; then
-    limit=1
-    wanted=$limit
-    work
-
-  # This is the goal, going up less directories than it would take to go past "/", not 0, and no errors.
-  elif [[ "$wanted" -le "$limit" ]] && [[ "$wanted" -gt 0 ]]; then
-    work
-
-  # Show error if "up 0" or wanted to up higher than the "/" directory
-  else
-    echo "Couldn't go up $wanted dirs."
-  fi
-}
 export GPG_TTY=$(tty)
