@@ -1,0 +1,12 @@
+##########################################################
+#  has to be ran with sudo.                              #
+#  MUST DO PRIOR TO RUNNING:                             #
+#      change shell to /bin/bash (or otherwise NOT zsh)  #
+#      LOG OUT, or reboot.                               #
+##########################################################
+#
+# This script is to remove zsh and related packages
+# as well as their configuration files.
+#
+pacman -Rn manjaro-zsh-config zsh-theme-powerlevel10k zsh-syntax-highlighting zsh-history-substring-search \
+zsh-completions zsh-autosuggestions bmenu pacui fzf zsh
